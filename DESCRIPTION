@@ -1,0 +1,8 @@
+Package: tcx-streetview-checker
+Version: 0.1
+Date: 2019-05-12
+Title: TCX Streetview Checker
+Description: Shiny app to check whether there are points on a .tcx route which do not have a Google streetview image associated with them.
+URL: https://github.com/odaniel1/tcx-streetview-checker
+Author: Owen Daniel
+Maintainer: Owen Daniel
