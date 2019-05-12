@@ -1,6 +1,6 @@
 source("global.R")
 
-library("tcx-streetview-checker")
+library("tcxStreetviewR")
 
 function(input, output) {
   
