@@ -5,8 +5,8 @@ library(leaflet)
 library(zoo)
 library(plotly)
 library(cycleRtools)
-
-source("./check_segment_streetview.R")
-source("./get_streetview_status.R")
-source("./reduce_segment_to_freq.R")
-source("./download_route_tcx.R")
+# 
+# source("./check_segment_streetview.R")
+# source("./get_streetview_status.R")
+# source("./reduce_segment_to_freq.R")
+# source("./download_route_tcx.R")

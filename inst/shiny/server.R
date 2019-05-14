@@ -16,7 +16,7 @@ function(input, output) {
     temp_dir <- tempdir()
     print(temp_dir)
     
-    download_route_tcx(route_id, temp_dir)
+    download_route_tcx(route_id, temp_dir, strava_auth$key, strava_auth$secret)
     
     route_df <- read_tcx(paste0(temp_dir, "/", route_id, ".tcx") ) %>%
       mutate(
@@ -73,7 +73,7 @@ function(input, output) {
   # ------------------------------------------------------------------------------------------
   # Define data frame with street view checked. 
   checked_df <- eventReactive(input$check_streetview, {
-    check_segment_streetview(segment_df(), freq = input$sample_freq, cores = 4)
+    check_segment_streetview(segment_df(), freq = input$sample_freq, google_auth$key, google_auth$secret, cores = 4)
   })
   
   # -----------------------------------------------------------------------------------------

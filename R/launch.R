@@ -1,8 +1,12 @@
 #' Run the graphical interface to the app in a web browser
+#' @param google_auth A pair containing valid credentials (key,secret) for the Google Static Streetview API.
+#' @param strava_auth A pair containing valid credentials (key,secret) for the Strava API.
+#' @examples
 #' @export
-launch <- function(){
+
+launch <- function(google_auth, strava_auth = NULL){
   
-  shiny::runApp(system.file("shiny", package = "tcxStreetviewR"),
+shiny::runApp(system.file("shiny", package = "tcxStreetviewR"),
                 display.mode = "normal",
                 launch.browser = TRUE)
 }

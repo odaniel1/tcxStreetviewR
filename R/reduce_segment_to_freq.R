@@ -1,3 +1,8 @@
+#' Samples a provided route segment at regular intervals
+#' @param segment A route segment in data frame format.
+#' @param freq The frequency (in meters) at which to sample.
+#' @examples
+#' reduce_segment_to_freq()
 reduce_segment_to_freq <- function(segment, freq){
   
   require(tidyverse)
@@ -19,7 +24,11 @@ reduce_segment_to_freq <- function(segment, freq){
 }
 
 #----------------------------------------------------------------------------------------------------------------------
-
+#' Merges two data frames, and imputes missing streetview status values.
+#' @param segment A route segment in data frame format.
+#' @param checkpoints A subset of rows from segment argument, including a streetview_status field. 
+#' @examples
+#' merge_freq_to_segment()
 merge_freq_to_segment <- function(segment, checkpoints){
   
   checkpoints <-checkpoints %>% select(LatitudeDegrees, LongitudeDegrees, streetview_status)
