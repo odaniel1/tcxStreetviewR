@@ -3,6 +3,7 @@
 #' @param freq The frequency in meters at which to check the API.
 #' @param api_key The key for the Google Static Streetview API.
 #' @param api_secret The secret for the Google Static Streetview API
+#' @export
 #' @examples
 #' check_segment_streetview()
 check_segment_streetview <- function(segment, freq, api_key, api_secret, cores = NULL){

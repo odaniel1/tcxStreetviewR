@@ -14,10 +14,10 @@ function(input, output) {
     print(route_id)
     
     temp_dir <- tempdir()
-    print(temp_dir)
-    
+
     download_route_tcx(route_id, temp_dir, strava_auth$key, strava_auth$secret)
-    
+
+    # CHANGE NEEDED TO REFLECT USE OF READ TCX FROM cycleRTools
     route_df <- read_tcx(paste0(temp_dir, "/", route_id, ".tcx") ) %>%
       mutate(
         `Distance (Km)` = round(DistanceMeters/1000, 1),

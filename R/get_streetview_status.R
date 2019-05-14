@@ -6,6 +6,7 @@
 #' @param longitude A longitude value
 #' @param api_key The API key for Google Static Streetview
 #' @param api_secret The API secret for Google Static Streetview
+#' @export
 #' @examples
 #' get_single_streetview_status()
 get_single_streetview_status <- function(latitude = NULL, longitude = NULL, api_key = NULL, api_secret = NULL){
@@ -39,6 +40,7 @@ get_single_streetview_status <- Vectorize(get_single_streetview_status)
 #' @param api_key The API key for Google Static Streetview
 #' @param api_secret The API secret for Google Static Streetview
 #' @param cores The number of cores to use for parallel processing
+#' @export
 #' @examples
 #' get_streetview_status()
 get_streetview_status <- function(segment, api_key, api_secret, cores = NULL){

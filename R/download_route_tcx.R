@@ -5,14 +5,12 @@
 #' @param write_dir The directory to write the tcx file to.
 #' @param strava_key The API key for Strava.
 #' @param strava_secret The API secret for Strava.
+#' @export
 #' @examples
 
 download_route_tcx <- function(route_id, write_dir, strava_key, strava_secret){
   
   library(httr)
-  
-  # strava_key <- readChar("./strava_key.txt", file.info("./strava_key.txt")$size)
-  # strava_secret <- readChar("./strava_secret.txt", file.info("./strava_secret.txt")$size)
   
   my_app <- oauth_app("strava",key = strava_key,secret = strava_secret)
   
