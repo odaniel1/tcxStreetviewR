@@ -28,7 +28,5 @@ download_route_tcx <- function(route_id, write_dir, strava_key, strava_secret){
   url <- paste0("https://www.strava.com/api/v3/routes/", route_id, "/export_tcx")
   write_path <- paste0(write_dir, "/", route_id, ".tcx")
   
-  print(write_path)
-  
   GET(url, strava_token, write_disk(write_path, overwrite = TRUE))
 }

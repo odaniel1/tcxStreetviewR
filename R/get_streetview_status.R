@@ -9,12 +9,7 @@
 #' @export
 #' @examples
 #' get_single_streetview_status()
-get_single_streetview_status <- function(latitude = NULL, longitude = NULL, api_key = NULL, api_secret = NULL){
-  
-#   key <- readChar("./google_API_key.txt", file.info("./google_API_key.txt")$size)
-#   secret <- readChar("./signing_secret.txt", file.info("./signing_secret.txt")$size)
-  
-  require(jsonlite)
+get_single_streetview_status <- function(latitude = NULL, longitude = NULL, api_key, api_secret){
   
   url <- paste0("https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300",
     "&location=",latitude, ",", longitude, "&key=", api_key, "&secret=", api_secret)
@@ -54,10 +49,10 @@ get_streetview_status <- function(segment, api_key, api_secret, cores = NULL){
     
     require(parallel)
     cl <- makeCluster(min(detectCores(), cores))
-    clusterExport(cl, c('segment', 'get_single_streetview_status'), envir=environment())
+    clusterExport(cl, c('segment', 'get_single_streetview_status', 'google_auth'), envir=environment())
     
     segment$streetview_status <- parApply(cl, segment, 1,
-        function(x) get_single_streetview_status(latitude = x['LatitudeDegrees'], longitude = x['LongitudeDegrees'])
+        function(x) get_single_streetview_status(latitude = x['LatitudeDegrees'], longitude = x['LongitudeDegrees'], api_key, api_secret)
     )
     
     stopCluster(cl)

@@ -10,15 +10,13 @@ function(input, output) {
   course_df <- eventReactive(input$download_tcx, {
     
     route_id <- input$route_url %>% str_replace("https://www.strava.com/routes/", "")
-    print(input$route_url)
-    print(route_id)
-    
+
     temp_dir <- tempdir()
 
     download_route_tcx(route_id, temp_dir, strava_auth$key, strava_auth$secret)
 
     # CHANGE NEEDED TO REFLECT USE OF READ TCX FROM cycleRTools
-    route_df <- read_tcx(paste0(temp_dir, "/", route_id, ".tcx") ) %>%
+    route_df <- cycleRtools::read_tcx(paste0(temp_dir, "/", route_id, ".tcx"), format = FALSE) %>%
       mutate(
         `Distance (Km)` = round(DistanceMeters/1000, 1),
         `Altitude (m)` = rollapply(AltitudeMeters,30, mean, align='center',fill=NA) %>% round(1)
@@ -73,7 +71,7 @@ function(input, output) {
   # ------------------------------------------------------------------------------------------
   # Define data frame with street view checked. 
   checked_df <- eventReactive(input$check_streetview, {
-    check_segment_streetview(segment_df(), freq = input$sample_freq, google_auth$key, google_auth$secret, cores = 4)
+    check_segment_streetview(segment_df(), freq = input$sample_freq, api_key = google_auth$key, api_secret = google_auth$secret, cores = 4)
   })
   
   # -----------------------------------------------------------------------------------------
@@ -93,6 +91,8 @@ function(input, output) {
     }
     
     if(input$check_streetview != 0){
+      
+      print(checked_df() %>% sample_n(10))
       
       lf <- lf %>%
         addPolylines(data = cbind(course_df()$LongitudeDegrees, course_df()$LatitudeDegrees), color = "grey" )
