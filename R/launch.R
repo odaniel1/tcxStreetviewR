@@ -4,7 +4,7 @@
 #' @examples
 #' @export
 
-launch <- function(google_auth, strava_auth = NULL){
+launch <- function(){
   
 shiny::runApp(system.file("shiny", package = "tcxStreetviewR"),
                 display.mode = "normal",
