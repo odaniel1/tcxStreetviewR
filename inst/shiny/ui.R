@@ -1,5 +1,3 @@
-source("global.R")
-
 fluidPage(
   titlePanel("TCX Streetview Checker"),
   
@@ -20,10 +18,11 @@ fluidPage(
       tags$head(
         tags$style(
           HTML(
-            "#inputs-table {border-collapse: collapse;}
+            ".progress-bar{background-color:#0dc5c1;}
+            #inputs-table {border-collapse: collapse;}
             #inputs-table td {padding: 5px;vertical-align: bottom;}"
           ))),
-      
+
       # File upload.
       tags$table(id = "inputs-table", style = "width: 100%",
                  tags$tr(
@@ -32,7 +31,7 @@ fluidPage(
       ),
       
       # URL entry form.
-      div(style = "margin-top:-3em",
+      div(style = "margin-top:-2em",
           tags$table(id = "inputs-table", style = "width: 100%",
                      tags$tr(
                        tags$td(style = "width: 70%", textInput("route_url", "Or, enter Strava route URL",value = "https://www.strava.com/routes/18558756")),
