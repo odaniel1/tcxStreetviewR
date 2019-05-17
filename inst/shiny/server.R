@@ -1,5 +1,3 @@
-source("global.R")
-
 library("tcxStreetviewR")
 
 function(input, output) {
@@ -13,7 +11,7 @@ function(input, output) {
 
     temp_dir <- tempdir()
 
-    download_route_tcx(route_id, temp_dir, strava_auth$key, strava_auth$secret)
+    download_route_tcx(route_id, temp_dir, strava_token) #strava_auth$key, strava_auth$secret)
 
     # CHANGE NEEDED TO REFLECT USE OF READ TCX FROM cycleRTools
     route_df <- cycleRtools::read_tcx(paste0(temp_dir, "/", route_id, ".tcx"), format = FALSE) %>%
@@ -80,19 +78,21 @@ function(input, output) {
     
     lf <- leaflet() %>% addTiles
     
-    if(is.null(course_df()) == FALSE & input$check_streetview == 0){
-      lf <- lf %>%
-        addPolylines(data = cbind(course_df()$LongitudeDegrees, course_df()$LatitudeDegrees), color = "grey" )
-    }
-    
-    if(is.null(segment_df()) == FALSE & input$check_streetview == 0){
-      lf <- lf %>%
+    # If no segment selected and streetview has not yet been checked, render complete course in cyan.
+    if(identical(course_df(), segment_df()) == TRUE & input$check_streetview == 0){
+      lf <- lf %>% 
         addPolylines(data = cbind(segment_df()$LongitudeDegrees, segment_df()$LatitudeDegrees),color = "#0dc5c1" )
     }
     
+    # If a segment is selected and streetview has not yet been checked, render segment in cyan and remaining
+    # course in grey.
+    if(identical(course_df(), segment_df()) == FALSE & input$check_streetview == 0){
+      lf <- lf %>% 
+        addPolylines(data = cbind(course_df()$LongitudeDegrees, course_df()$LatitudeDegrees),color = "grey" ) %>%
+        addPolylines(data = cbind(segment_df()$LongitudeDegrees, segment_df()$LatitudeDegrees),color = "#0dc5c1")
+    }
+    
     if(input$check_streetview != 0){
-      
-      print(checked_df() %>% sample_n(10))
       
       lf <- lf %>%
         addPolylines(data = cbind(course_df()$LongitudeDegrees, course_df()$LatitudeDegrees), color = "grey" )
