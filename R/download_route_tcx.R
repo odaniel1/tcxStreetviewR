@@ -3,28 +3,12 @@
 #' This function downloads a tcx. file from Strava.
 #' @param route_id The route id; this is the number that appears in the URL for the route.
 #' @param write_dir The directory to write the tcx file to.
-#' @param strava_key The API key for Strava.
-#' @param strava_secret The API secret for Strava.
+#' @param strava_token An oauth token for the Strava API.
 #' @export
 #' @examples
 
-download_route_tcx <- function(route_id, write_dir, strava_key, strava_secret){
-  
-  library(httr)
-  
-  my_app <- oauth_app("strava",key = strava_key,secret = strava_secret)
-  
-  my_endpoint <- oauth_endpoint(request = NULL,
-                                authorize = "https://www.strava.com/oauth/authorize",
-                                access = "https://www.strava.com/oauth/token"
-  )
-  
-  strava_token <- oauth2.0_token(
-    my_endpoint, my_app,
-    scope = "view_private", type = NULL, use_oob = FALSE,
-    as_header = FALSE, use_basic_auth = FALSE, cache = FALSE
-  )
-  
+download_route_tcx <- function(route_id, write_dir, strava_token){
+
   url <- paste0("https://www.strava.com/api/v3/routes/", route_id, "/export_tcx")
   write_path <- paste0(write_dir, "/", route_id, ".tcx")
   
