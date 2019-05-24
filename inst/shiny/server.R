@@ -1,7 +1,7 @@
 library("tcxStreetviewR")
 
 function(input, output) {
-  
+
   # ------------------------------------------------------------------------------------------
   # Download route
   
@@ -13,7 +13,6 @@ function(input, output) {
 
     download_route_tcx(route_id, temp_dir, strava_token) #strava_auth$key, strava_auth$secret)
 
-    # CHANGE NEEDED TO REFLECT USE OF READ TCX FROM cycleRTools
     route_df <- cycleRtools::read_tcx(paste0(temp_dir, "/", route_id, ".tcx"), format = FALSE) %>%
       mutate(
         `Distance (Km)` = round(DistanceMeters/1000, 1),
@@ -55,6 +54,10 @@ function(input, output) {
   segment_df <- reactive({
     
     zr_names <- zoom_range() %>% names()
+    
+    print(zr_names)
+    print(c(zoom_range()$`xaxis.range[0]`, zoom_range()$`xaxis.range[1]`))
+    print(c(zoom_range()$width, zoom_range()$height))
     
     if(is.null(zr_names)){ course_df()}
     else if(identical(zr_names, "xaxis.autorange") ){ course_df()}
