@@ -13,7 +13,7 @@ google_auth <- data_frame(key = Sys.getenv("google_key"), secret = Sys.getenv("g
 strava_auth <- data_frame(key = Sys.getenv("strava_key"), secret = Sys.getenv("strava_secret"))
 
 
-# Auth flow for Strava API.
+# Auth flow for Strava API
 strava_app <- oauth_app("strava",key = strava_auth$key,secret = strava_auth$secret)
 
 strava_endpoint <- oauth_endpoint(request = NULL,

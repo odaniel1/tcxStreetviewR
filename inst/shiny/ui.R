@@ -34,7 +34,7 @@ fluidPage(
       div(style = "margin-top:-2em",
           tags$table(id = "inputs-table", style = "width: 100%",
                      tags$tr(
-                       tags$td(style = "width: 70%", textInput("route_url", "Or, enter Strava route URL",value = "https://www.strava.com/routes/18558756")),
+                       tags$td(style = "width: 70%", textInput("route_url", "Or, enter Strava route URL",value = "https://www.strava.com/routes/18251696")),
                        
                        tags$td(style = "width: 30%; text-align: right"
                                , div(class = "form-group shiny-input-container"
